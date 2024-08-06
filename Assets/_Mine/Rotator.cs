@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Rotator : MonoBehaviour
 {
-    public float rotationSpeed = 90f;  // Rotation speed in degrees per second
-    public bool isScrewRotation = true;  // If true, mimic screwing rotation; otherwise, different rotation
-    public bool isRotating = false;     // Is the object currently rotating?
-    public float duration = 2.0f;       // Duration for the rotation
+    public float rotationSpeed = 90f;  
+    public bool isRotating = false;     
+    public float duration = 2.0f;      
     private Coroutine rotationCoroutine;
+    public GameObject initObject;
+
 
     public void StartRotation()
     {
@@ -19,28 +20,22 @@ public class Rotator : MonoBehaviour
         rotationCoroutine = StartCoroutine(RotateForDuration(duration));
     }
 
+    public void StopRotation(){
+        isRotating=false;
+    }
+
     private IEnumerator RotateForDuration(float duration)
     {
         yield return new WaitForSeconds(duration);
         isRotating = false;
+        initObject.GetComponent<Task>().EndTask();
+
     }
 
     private void Update()
     {
-        if (isRotating)
-        {
-            Vector3 rotationAxis;
-
-            if (isScrewRotation)
-            {
-                rotationAxis = Vector3.forward;
-            }
-            else
-            {
-                rotationAxis = Vector3.up;
-            }
-
-            transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+        if(isRotating){
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
         }
     }
 }
