@@ -9,6 +9,17 @@ public class TaskManager : MonoBehaviour
     private int currentTaskIndex = -1;
     public ParticleSystem particleSystem;
     public TMP_Text taskInfoText;
+        public TMP_Text BigScreen;
+
+    private List<string> sentences = new List<string>
+    {
+        "There were a problem in our motor engine.",
+        "Your task is to fix it so that we can continue our journey.",
+        "Go outside and find the stairs to get up you will then see the instruction to do your task",
+        "GO GO GO GO !!!!"
+        
+    };
+    private int sentenceIndex = -1;
     
     private void Start()
     {
@@ -52,6 +63,7 @@ public class TaskManager : MonoBehaviour
 
 
             Debug.Log("All tasks completed.");
+            BigScreen.text="WellDone Ranger You may now die";
         }
     }
 
@@ -66,6 +78,19 @@ public class TaskManager : MonoBehaviour
         if (taskInfoText != null)
         {
             taskInfoText.text = $"Task {currentTaskIndex + 1}: {taskName}";
+        }
+    }
+
+    public void ShowNextSentence()
+    {
+        sentenceIndex++;
+        if (sentenceIndex < sentences.Count)
+        {
+            BigScreen.text = sentences[sentenceIndex];
+        }
+        else
+        {
+            BigScreen.text="END";
         }
     }
 }
