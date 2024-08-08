@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Collections;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class TaskManager : MonoBehaviour
 {
@@ -9,8 +9,11 @@ public class TaskManager : MonoBehaviour
     private int currentTaskIndex = -1;
     public ParticleSystem particleSystem;
     public TMP_Text taskInfoText;
-        public TMP_Text BigScreen;
-
+    public TMP_Text BigScreen;
+    public ElectroShockEffect electroShockEffect; // Reference to the ElectroShockEffect script
+    public XRBaseInteractable shockInteractable; // Reference to the XR interactable that triggers the shock
+    public Animator animator;
+    public Rotator rotator;
     private List<string> sentences = new List<string>
     {
         "There were a problem in our motor engine.",
@@ -21,10 +24,7 @@ public class TaskManager : MonoBehaviour
     };
     private int sentenceIndex = -1;
     
-    private void Start()
-    {
-       
-    }
+
 
     public void StartNextTask()
     {
@@ -54,16 +54,12 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            UpdateTaskInfo("All Done");
-            if (particleSystem != null)
-            {
-                particleSystem.Play();
-            }
-
-
-
-            Debug.Log("All tasks completed.");
-            BigScreen.text="WellDone Ranger You may now die";
+            UpdateTaskInfo("All tasks completed. You may now start the engine.");
+            rotator.StartRotation(10000f);
+            animator.SetTrigger("GearAnim");
+            electroShockEffect.ToggleisLastTime();
+            Debug.Log("All tasks completed. You may now start the engine.");
+            BigScreen.text="WellDone Ranger You may now go Home";
         }
     }
 
@@ -80,7 +76,6 @@ public class TaskManager : MonoBehaviour
             taskInfoText.text = $"Task {currentTaskIndex + 1}: {taskName}";
         }
     }
-
     public void ShowNextSentence()
     {
         sentenceIndex++;
@@ -90,8 +85,8 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            BigScreen.text="Tasks Started";
-            StartNextTask();
+            BigScreen.text = "Tasks Started";
+            
         }
     }
 }

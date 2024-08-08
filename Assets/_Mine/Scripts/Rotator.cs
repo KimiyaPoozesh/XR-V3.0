@@ -8,10 +8,11 @@ public class Rotator : MonoBehaviour
     public float duration = 2.0f;      
     private Coroutine rotationCoroutine;
     public GameObject initObject;
+public AudioSource audioSource;
 
-
-    public void StartRotation()
+    public void StartRotation(float duration)
     {
+        audioSource.Play();
         if (rotationCoroutine != null)
         {
             StopCoroutine(rotationCoroutine);

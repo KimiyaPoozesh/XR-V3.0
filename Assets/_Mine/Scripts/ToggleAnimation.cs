@@ -8,7 +8,7 @@ public class ToggleAnimation : MonoBehaviour
     private bool isPlaying;
 
     public GameObject initObject;
-
+    public AudioSource audio;
 
     void Awake()
     {
@@ -29,6 +29,7 @@ public class ToggleAnimation : MonoBehaviour
             StartCoroutine(WaitAndEndTask(2.7f)); 
             animator.SetBool("isPlaying", isPlaying);
             isPlaying = false;
+            audio.Play();
         }
         
     }
