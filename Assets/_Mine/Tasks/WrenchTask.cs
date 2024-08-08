@@ -16,10 +16,10 @@ public class WrenchTask : MonoBehaviour, Task
     void Awake()
     {
         if(gameObject.CompareTag("Wrench")){
-            name="Use Wrench";
+            name="Use Wrench on the gear.";
         }
         else{
-            name="Place New Gear On";
+            name="Place New Gear On the old place";
         }
         initialPosition = transform.position;
         //save the initial rotation
