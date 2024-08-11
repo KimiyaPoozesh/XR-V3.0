@@ -8,8 +8,11 @@ public class ElectroShockEffect : MonoBehaviour
     public float blinkInterval = 0.05f;  // Interval between blinks
     private bool isFirstTime=true;
     private bool isLastTime=false;
-
+    public Animator animator;
+    public Rotator rotator;
     private Image panelImage;
+    public ParticleSystem particleSystem;
+
     private bool isShocking = false;
     private float shockTimer = 0f;
     private float blinkTimer = 0f;
@@ -52,6 +55,9 @@ public class ElectroShockEffect : MonoBehaviour
         if (isLastTime)
         {
             startSound.Play();
+            rotator.StartRotation(10000f);
+            particleSystem.Play();
+            animator.SetTrigger("GearAnim");
         }
         else
         {

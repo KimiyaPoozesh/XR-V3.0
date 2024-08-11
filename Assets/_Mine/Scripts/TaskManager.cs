@@ -7,13 +7,10 @@ public class TaskManager : MonoBehaviour
 {
     public List<GameObject> taskObjects; 
     private int currentTaskIndex = -1;
-    public ParticleSystem particleSystem;
-    public TMP_Text taskInfoText;
+        public TMP_Text taskInfoText;
     public TMP_Text BigScreen;
-    public ElectroShockEffect electroShockEffect; // Reference to the ElectroShockEffect script
-    public XRBaseInteractable shockInteractable; // Reference to the XR interactable that triggers the shock
-    public Animator animator;
-    public Rotator rotator;
+    public ElectroShockEffect electroShockEffect;
+    
     private List<string> sentences = new List<string>
     {
         "There were a problem in our motor engine.",
@@ -55,8 +52,7 @@ public class TaskManager : MonoBehaviour
         else
         {
             UpdateTaskInfo("All tasks completed. You may now start the engine.");
-            rotator.StartRotation(10000f);
-            animator.SetTrigger("GearAnim");
+            
             electroShockEffect.ToggleisLastTime();
             Debug.Log("All tasks completed. You may now start the engine.");
             BigScreen.text="WellDone Ranger You may now go Home";

@@ -8,10 +8,10 @@ public class WrenchTask : MonoBehaviour, Task
     public string name;
     public UnityEvent OnTaskCompleted { get; set; }
     Vector3 initialPosition;
-    public MoveBolt mb;
     
     Quaternion initialRotation;
     private bool isOpening=true;
+    public GameObject Bolt;
     
     void Awake()
     {
@@ -42,10 +42,12 @@ public class WrenchTask : MonoBehaviour, Task
         GetComponent<XRGrabInteractable>().enabled = false;
         if(gameObject.CompareTag("Wrench")){
             if(isOpening){
-                mb.MoveUp();
+                
+                Bolt.SetActive(false);
             }
-            else
-                mb.MoveDown();
+            else{
+                
+                Bolt.SetActive(true);}
             Initialize(gameObject);
         }
             

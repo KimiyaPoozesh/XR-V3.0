@@ -12,13 +12,14 @@ public AudioSource audioSource;
 
     public void StartRotation(float duration)
     {
-        audioSource.Play();
+       
         if (rotationCoroutine != null)
         {
             StopCoroutine(rotationCoroutine);
         }
         isRotating = true;
         rotationCoroutine = StartCoroutine(RotateForDuration(duration));
+        audioSource.Play();
     }
 
     public void StopRotation(){
@@ -29,6 +30,7 @@ public AudioSource audioSource;
     {
         yield return new WaitForSeconds(duration);
         isRotating = false;
+        audioSource.Stop();
         initObject.GetComponent<Task>().EndTask();
 
     }
